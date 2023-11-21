@@ -1,0 +1,84 @@
+@model BlogApplication.Models.Post
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@Model.Title</title>
+    <link rel="stylesheet" href="~/css/homeStyle.css">
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="/">Home</a>
+        @* <div class="menu-bar-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post" asp-action="Logout">
+                    <button><input type="submit" value="Logout"></button>
+                </form>
+            }
+            else
+            {
+                <a href="/login">Login</a>
+            }
+        </div> *@
+    </div>
+
+    <div class="postContainer">
+        <h1>@Model.Title</h1>
+        
+        <h4>
+            @* @if (Model.Author != null)
+            {
+                <span>@Model.Author.Name</span>,
+            } *@
+            <span>@Model.PublishedAt.ToString("dd/MM/yyyy")</span>
+        </h4>
+        <p>
+            @Model.Content
+        </p>
+        <p>
+            <strong>Tags:</strong>
+            @if (Model.Tags != null && Model.Tags.Any())
+            {
+                @foreach (var tag in Model.Tags)
+                {
+                    <span>@tag.Name</span>
+                    if (tag != Model.Tags.Last())
+                    {
+                        <span>,</span>
+                    }
+                }
+            }
+        </p>
+        @* @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="comment-form">
+                <h3>Add a Comment</h3>
+                <form method="post" asp-action="Comment">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <label for="name">Name:</label> <input type="text" id="name" name="name" required><br>
+                    <label for="email">Email:</label> <input type="text" id="email" name="email" required><br>
+                    <label for="comment">Comment:</label><textarea id="comment" name="comment" rows="3" required></textarea><br>
+                    <input type="submit" value="Respond">
+                </form>
+            </div>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="comment-form">
+                <h3>Add a Comment</h3>
+                <form method="post" asp-action="Comment">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <label for="name">Name:</label> <input type="text" id="name" name="name" value="@User.Identity.Name" readonly><br>
+                    <label for="email">Email:</label> <input type="text" id="email" name="email" value="@User.Identity.Name" readonly><br>
+                    <label for="comment">Comment:</label><textarea id="comment" name="comment" rows="3"></textarea><br>
+                    <input type="submit" value="Respond">
+                </form>
+            </div>
+        }
+        <a href="/showcomment/@Model.Id">Show Comment</a> *@
+    </div>
+    
+     
+</body>
+</html>

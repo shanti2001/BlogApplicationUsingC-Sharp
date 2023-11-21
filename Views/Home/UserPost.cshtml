@@ -1,0 +1,75 @@
+@{
+    Layout = null; // If you don't want to use a shared layout
+}
+@model List<Post>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Blog</title>
+    <link rel="stylesheet" href="~/css/homeStyle.css">
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="/">Home</a>
+        <div class="menu-bar-right">
+            
+            <form asp-action="Search" method="get">
+                <input type="text" name="q" placeholder="Search blog posts" />
+            </form>
+            <form asp-action="SortBy" method="get">
+                <select id="sort" name="sort" class="sortButton">
+                    <option value="asc">Oldest</option>
+                    <option value="desc">Newest</option>
+                </select>
+                <input type="submit" value="SortByPublishDate">
+            </form>
+            <a asp-action="Filter">Filter</a>
+            <a asp-action="NewPost" asp-controller="Post">Create New Blog</a>
+        </div>
+    </div>
+    
+
+    @if (Model.Count == 0)
+    {
+        <h3>There are no blogs</h3>
+    }
+    @if (Model.Count > 0)
+    {
+        <div class="container">
+            @foreach (var post in Model)
+            {
+                <div class="post">
+                    <h2>@post.Title</h2>
+                    
+                    <span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+                        
+                    <p>@post.Excerpt</p>
+
+                    <div>
+                        <strong>Tags:</strong>
+                        @if (post.Tags != null)
+                        {
+                            @foreach (var tag in post.Tags)
+                            {
+                                <span>@tag.Name</span>
+                                @if (post.Tags.Last() != tag)
+                                {
+                                    <span>,</span>
+                                }
+                            }
+                        }
+                        <span>No tags</span>
+                    </div>
+                    <br />
+                    <a href="/Post/UpdatePost/@post.Id" class="blue-button">Update</a>
+                    <a href="/Post/DeletePost/@post.Id" class="red-button">Delete</a>
+                    <a href="/Post/ShowPost/@post.Id" class="read-button">Read More</a>
+                </div>
+            }
+        </div>
+    }
+
+    
+</body>
+</html>

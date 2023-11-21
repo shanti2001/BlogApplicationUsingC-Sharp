@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Post>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/css/homeStyle.css"/>
+    </head>
+
+    <body>
+    
+        <div class="menu-bar">
+            <a href="/">Home</a>
+            <div class="menu-bar-right">
+                <span >
+                    <a asp-action="Login" >Login</a>
+                </span>
+                @* <span>
+                    <form method="POST">
+                        <button ><input type="submit" value="Logout"></button>
+                    </form>
+                </span> *@
+                
+                <form  method="get">
+                    <input type="text" name="q" placeholder="Search blog posts" />
+                </form>
+                <form  method="get">
+                    <select id="sort" name="sort" class="sortButton">
+                        <option value="asc">Oldest</option>
+                        <option value="desc">Newest</option>
+                        
+                    </select> 
+                    <input type="submit" value="SortByPublishDate"> 
+                </form>
+                <a >Filter</a>
+                <a asp-action="NewPost" asp-controller="Post">Create New Blog</a>
+                <span >
+                    <span >
+                        <a asp-action="UserPost">Your Post</a>
+                    </span>
+                    @* <span >
+                        <a>All Post</a>
+                    </span> *@
+                </span>
+                
+            </div>
+        </div>
+        @* <div th:if="${user} != null">
+            <h3>WellCome <span th:text="${user.name}"></span></h3>
+        </div> *@
+   
+    
+
+	@{
+		if(Model.Count==0){
+			<h3>There is no blog</h3>
+		}
+		else{
+			<div class="container">
+				@foreach(Post post in Model){
+					<div class="post">
+						<h2>@post.Title</h2>
+						<span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+						@if(post.Author!=null){
+							<p>
+								<span>@post.Author.Name</span>
+							</p>
+						}
+						
+						<p>
+							@post.Excerpt
+						</p>
+						
+						<div>
+                <strong>Tags:</strong>
+                @if (post.Tags != null && post.Tags.Any())
+                {
+                    @foreach (var tag in post.Tags)
+                    {
+                        <span>@tag.Name</span>
+                        @if (tag != post.Tags.Last())
+                        {
+                            <span>,</span>
+                        }
+                    }
+                }
+                else
+                {
+                    <span>No tags</span>
+                }
+            </div><br>
+            <a href="/Post/ShowPost/@post.Id" class="read-button">Read More</a>
+					</div>
+				}
+			</div>
+		}
+	}
+
+	
+		
+	</div>
+	@* <div >
+		<nav >
+			<a class="prev"> < Previous </a>
+			<a class="next">Next > </a>
+		</nav>
+	</div> *@
+	@* <div th:if="${sort} !=null">
+		<nav th:if="${pageCount} != null">
+			<a class="prev" > < Previous</a>
+			<a class="next" >Next > </a>
+		</nav>
+	</div> *@
+</body>
+</html>

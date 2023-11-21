@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+<div class="container">
+    <h1>Login </h1>
+    <div class="form-container">
+        <form action="LogedIn" method="post">
+        	
+            <input type="email" placeholder="Email" name="username" required="required"><br>
+            <input type="password" placeholder="Password" name="password" required="required"><br>
+            <br>
+            <button class="button" type="submit">Submit</button>
+        </form>
+        <p>
+            Don't have an account? <a asp-action="Register" >Create one</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+

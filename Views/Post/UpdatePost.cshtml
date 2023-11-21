@@ -1,0 +1,43 @@
+@model BlogApplication.Models.Post
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Blog</title>
+    <link rel="stylesheet" href="~/css/homeStyle.css" />
+    <link rel="stylesheet" href="~/css/newPost.css" />
+   
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="/">Home</a>
+        
+    </div>
+    <div class="form-container">
+        <h2>Update Post</h2>
+        <form asp-action="Update" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="form-group">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" id="title" name="title" class="form-input" asp-for="@Model.Title">
+            </div>
+            <div class="form-group">
+                <label for="excerpt" class="form-label">Excerpt:</label>
+                <textarea id="excerpt" name="excerpt" class="form-textarea" rows="4" asp-for="@Model.Excerpt"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="content" class="form-label">Content:</label>
+                <textarea id="content" name="content" class="form-textarea" rows="8" asp-for="@Model.Content"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tagInput" class="form-label">Tags:</label>
+                <input type="text" name="tagInput" class="form-input" id="tag-input" value="@ViewBag.AllTags">
+            </div>
+            <button type="submit" class="button">Save Change</button>
+        </form>
+        <br />
+        <a href="/">Back to home</a>
+    </div>
+
+</body>
+</html>
