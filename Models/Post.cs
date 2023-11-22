@@ -17,8 +17,9 @@ namespace BlogApplication.Models
         [Column(TypeName = "nvarchar(4000)")]
         public string Content { get; set; }
 
-        [ForeignKey("Author")]
+        
         public int AuthorId { get; set; }
+        [ForeignKey("AuthorId")]
         public User Author { get; set; }
 
         public DateTime PublishedAt { get; set; }

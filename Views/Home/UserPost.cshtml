@@ -14,10 +14,10 @@
         <a href="/">Home</a>
         <div class="menu-bar-right">
             
-            <form asp-action="Search" method="get">
+            <form asp-action="SearchPost" asp-controller="Post" method="get">
                 <input type="text" name="q" placeholder="Search blog posts" />
             </form>
-            <form asp-action="SortBy" method="get">
+            <form asp-action="Sort" asp-controller="Post" method="get">
                 <select id="sort" name="sort" class="sortButton">
                     <option value="asc">Oldest</option>
                     <option value="desc">Newest</option>

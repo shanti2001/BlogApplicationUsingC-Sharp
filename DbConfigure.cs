@@ -15,9 +15,10 @@ namespace com.blogApplication.BlogApplication2.entity
        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string serverName = "DESKTOP-UQEVJ76";
-            string databaseName = "BlogApplication";
+            string databaseName = "BlogApplication2";
             string connectionString = $"Data Source={serverName};Initial Catalog={databaseName};Integrated Security=True;TrustServerCertificate=true;";
             optionsBuilder.UseSqlServer(connectionString);
         }
     }
+    
 }

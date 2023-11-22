@@ -1,7 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Search Result";
 }
-@model List<Post>
+@model HashSet<Post>
 <html>
     <head>
         <link rel="stylesheet" href="~/css/homeStyle.css"/>
@@ -21,10 +21,7 @@
                     </form>
                 </span> *@
                 
-                <form asp-action="SearchPost" asp-controller="Post" method="get">
-                    <input type="text" name="q" placeholder="Search blog posts" />
-                </form>
-                <form asp-action="Sort" asp-controller="Post" method="get">
+                <form  method="get">
                     <select id="sort" name="sort" class="sortButton">
                         <option value="asc">Oldest</option>
                         <option value="desc">Newest</option>
@@ -36,7 +33,7 @@
                 <a asp-action="NewPost" asp-controller="Post">Create New Blog</a>
                 <span >
                     <span >
-                        <a asp-action="UserPost">Your Post</a>
+                        <a href="/Home/UserPost">Your Post</a>
                     </span>
                     @* <span >
                         <a>All Post</a>
@@ -49,7 +46,7 @@
             <h3>WellCome <span th:text="${user.name}"></span></h3>
         </div> *@
    
-    
+    <h2>Search Result</h2>
 
 	@{
 		if(Model.Count==0){

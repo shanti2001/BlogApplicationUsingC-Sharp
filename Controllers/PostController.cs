@@ -2,10 +2,21 @@ using Microsoft.AspNetCore.Mvc;
 using BlogApplication.Models;
 using com.blogApplication.BlogApplication2.entity;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Net.Http.Headers;
+using BlogApplication.Reposotory;
+using BlogApplication.Services;
 
 namespace BlogApplication.Controllers{
     
     public class PostController:Controller{
+        private readonly IPostRepository _repository; 
+        private readonly PostService _service;
+
+        public PostController(IPostRepository repository,PostService postService)
+        {
+            _repository = repository;
+            _service = postService;
+        }
         public IActionResult NewPost(){
             return View();
         }
@@ -18,9 +29,21 @@ namespace BlogApplication.Controllers{
                 post.CreatedAt = DateTime.Now;
                 post.PublishedAt = DateTime.Now;
                 post.IsPublished = true;
-
+                
+                List<Post> posts = author.Posts;
+                // Console.WriteLine(posts.Count);
+                if(posts==null){
+                    posts = new List<Post>();
+                }
+                posts.Add(post);
+                Console.WriteLine(posts.Count);
+                author.Posts = posts;
+                Console.WriteLine(author.Posts.Count);
                 DbContext.Posts.Add(post);
+                
                 DbContext.SaveChanges();
+                Console.WriteLine(author.Posts.Count);
+
 
             }
             return RedirectToAction("Index","Home");
@@ -82,6 +105,15 @@ namespace BlogApplication.Controllers{
             }
             return RedirectToAction("UserPost","Home");
             
+        }
+        public IActionResult SearchPost(string q){
+            
+            HashSet<Post> posts = _repository.SearchPosts(q);
+            return View(posts);
+        }
+        public IActionResult Sort(string sort){
+            List<Post> posts = _service.GetAllPostsSortedByPublishDate(sort);
+            return View(posts);
         }
     }
     

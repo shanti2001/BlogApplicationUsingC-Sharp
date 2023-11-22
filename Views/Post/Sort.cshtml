@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 @model List<Post>
@@ -36,7 +36,7 @@
                 <a asp-action="NewPost" asp-controller="Post">Create New Blog</a>
                 <span >
                     <span >
-                        <a asp-action="UserPost">Your Post</a>
+                        <a href="/Home/UserPost">Your Post</a>
                     </span>
                     @* <span >
                         <a>All Post</a>
