@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using BlogApplication.Models;
+using BlogApplication.Models.EntityConfigurations;
 
 namespace com.blogApplication.BlogApplication2.entity
 {
@@ -18,6 +19,13 @@ namespace com.blogApplication.BlogApplication2.entity
             string databaseName = "BlogApplication2";
             string connectionString = $"Data Source={serverName};Initial Catalog={databaseName};Integrated Security=True;TrustServerCertificate=true;";
             optionsBuilder.UseSqlServer(connectionString);
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
         }
     }
     

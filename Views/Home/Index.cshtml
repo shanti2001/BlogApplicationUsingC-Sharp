@@ -60,11 +60,11 @@
 				@foreach(Post post in Model){
 					<div class="post">
 						<h2>@post.Title</h2>
-						<span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+						
 						@if(post.Author!=null){
-							<p>
-								<span>@post.Author.Name</span>
-							</p>
+							<h6>
+								<span>@post.Author.Name</span>,<span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+							</h6>
 						}
 						
 						<p>

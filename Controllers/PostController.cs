@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using BlogApplication.Models;
 using com.blogApplication.BlogApplication2.entity;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Net.Http.Headers;
 using BlogApplication.Reposotory;
 using BlogApplication.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Controllers{
     
@@ -51,7 +50,7 @@ namespace BlogApplication.Controllers{
         public IActionResult ShowPost(int id){
             Post post;
             using(var DbContext = new DbConfigure()){
-                post = DbContext.Posts.FirstOrDefault(item=> item.Id==id);
+                post = DbContext.Posts.Include(p=>p.Author).FirstOrDefault(item=> item.Id==id);
 
             }
             return View(post);
@@ -73,7 +72,7 @@ namespace BlogApplication.Controllers{
         public IActionResult UpdatePost(int id){
             Post post;
             using(var dbContext = new DbConfigure()){
-                post  = dbContext.Posts.Find(id);
+                post  = dbContext.Posts.Include(p=>p.Tags).FirstOrDefault(p=> p.Id==id);
                 
             }
             List<Tag> tags = post.Tags;
@@ -115,6 +114,7 @@ namespace BlogApplication.Controllers{
             List<Post> posts = _service.GetAllPostsSortedByPublishDate(sort);
             return View(posts);
         }
+
     }
     
     

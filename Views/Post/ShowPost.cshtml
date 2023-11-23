@@ -27,11 +27,12 @@
         <h1>@Model.Title</h1>
         
         <h4>
-            @* @if (Model.Author != null)
+            @if (Model.Author != null)
             {
-                <span>@Model.Author.Name</span>,
-            } *@
-            <span>@Model.PublishedAt.ToString("dd/MM/yyyy")</span>
+                <span>@Model.Author.Name</span><span> , </span>
+                <span>@Model.PublishedAt.ToString("dd/MM/yyyy")</span>
+            }
+            
         </h4>
         <p>
             @Model.Content
@@ -50,11 +51,10 @@
                 }
             }
         </p>
-        @* @if (!User.Identity.IsAuthenticated)
-        {
+        
             <div class="comment-form">
                 <h3>Add a Comment</h3>
-                <form method="post" asp-action="Comment">
+                <form method="post" asp-action="Comment" asp-controller="Comment">
                     <input type="hidden" name="id" value="@Model.Id" />
                     <label for="name">Name:</label> <input type="text" id="name" name="name" required><br>
                     <label for="email">Email:</label> <input type="text" id="email" name="email" required><br>
@@ -62,21 +62,9 @@
                     <input type="submit" value="Respond">
                 </form>
             </div>
-        }
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="comment-form">
-                <h3>Add a Comment</h3>
-                <form method="post" asp-action="Comment">
-                    <input type="hidden" name="id" value="@Model.Id" />
-                    <label for="name">Name:</label> <input type="text" id="name" name="name" value="@User.Identity.Name" readonly><br>
-                    <label for="email">Email:</label> <input type="text" id="email" name="email" value="@User.Identity.Name" readonly><br>
-                    <label for="comment">Comment:</label><textarea id="comment" name="comment" rows="3"></textarea><br>
-                    <input type="submit" value="Respond">
-                </form>
-            </div>
-        }
-        <a href="/showcomment/@Model.Id">Show Comment</a> *@
+        
+        
+        <a href="/Comment/ShowComment/@Model.Id">Show Comment</a>
     </div>
     
      

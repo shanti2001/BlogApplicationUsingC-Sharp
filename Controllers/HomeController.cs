@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BlogApplication.Models;
 using com.blogApplication.BlogApplication2.entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Controllers;
 
@@ -18,7 +19,7 @@ public class HomeController : Controller
     {
         List<Post> posts = new List<Post>();
         using(var DbContext = new DbConfigure()){
-            posts = DbContext.Posts.ToList();
+            posts = DbContext.Posts.Include(p=>p.Author).ToList();
         }
         return View(posts);
     }
