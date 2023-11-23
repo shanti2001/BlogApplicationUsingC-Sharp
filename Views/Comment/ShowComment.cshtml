@@ -1,0 +1,70 @@
+@model List<Comment>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Comments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .comment-list {
+            max-width: 600px;
+            margin: 0 auto;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .comment {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment .user {
+            font-weight: bold;
+        }
+
+        .comment .timestamp {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <a href="/">Home</a>
+        <div class="menu-bar-right">
+           
+        </div>
+    </div>
+
+    <h1>@ViewBag.post.Title</h1>
+
+    <div>
+        @if (Model.Count == 0)
+        {
+            <h3>There are no comments</h3>
+        }
+        else
+        {
+            <ul class="comment-list">
+                @foreach (var comment in Model)
+                {
+                    <li class="comment">
+                        <p class="user">@comment.Name</p>
+                        <p class="timestamp">@comment.UpdatedAt</p>
+                        <p>@comment.CommentText</p>
+
+                       
+                        <a asp-action="UpdateComment" asp-controller="Comment" asp-route-id="@comment.Id">Update</a>
+                        <a asp-action="DeleteComment" asp-controller="Comment" asp-route-id="@comment.Id">Delete</a>
+                        
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</body>
+</html>

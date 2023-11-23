@@ -22,12 +22,14 @@ namespace BlogApplication.Controllers{
             return RedirectToAction("ShowPost","Post",new { id = id });
         }
         public IActionResult ShowComment(int id){
+            List<Comment> postComment;
+            Post post;
              using(var dbContext = new DbConfigure()){
-                Post post = dbContext.Posts.Include(p=>p.Comments).FirstOrDefault(p => p.Id == id);
-                List<Comment> postComment = post.Comments;
-                Console.WriteLine(postComment.Count);
+                post = dbContext.Posts.Include(p=>p.Comments).Include(p=>p.Author).FirstOrDefault(p => p.Id == id);
+                postComment = post.Comments;
              }
-            return RedirectToAction("ShowPost","Post",new { id = id });
+             ViewBag.post = post;
+            return View(postComment);
         }
     }
 }
