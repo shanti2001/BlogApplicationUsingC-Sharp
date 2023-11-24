@@ -20,7 +20,7 @@ namespace BlogApplication.Controllers{
             return View();
         }
         [HttpPost]
-        public IActionResult Publishpost(Post post){
+        public IActionResult Publishpost(Post post,string tagInput){
             using (var DbContext = new DbConfigure()){
                 User author = DbContext.Users.FirstOrDefault(item=> item.Id==1);
                 post.Author = author;
@@ -30,18 +30,46 @@ namespace BlogApplication.Controllers{
                 post.IsPublished = true;
                 
                 List<Post> posts = author.Posts;
-                // Console.WriteLine(posts.Count);
                 if(posts==null){
                     posts = new List<Post>();
                 }
                 posts.Add(post);
-                Console.WriteLine(posts.Count);
                 author.Posts = posts;
-                Console.WriteLine(author.Posts.Count);
+
                 DbContext.Posts.Add(post);
+
+                string []tagsName = tagInput.Split(',');
+                List<Tag> tags = DbContext.Tags.ToList();
+                List<Tag> postTags = post.Tags;
+
+                foreach(string tagName in tagsName){
+                    foreach(Tag tag in tags){
+                        if(tag.Name.Equals(tagName)){
+                            Tag exixtTag = DbContext.Tags.FirstOrDefault(t=> t.Id==tag.Id);
+                            exixtTag.UpdatedAt = DateTime.Now;
+                            List<Post> tagPosts = exixtTag.Posts;
+                            postTags.Add(exixtTag);
+                            tagPosts.Add(post);
+                            DbContext.SaveChanges();
+                        }
+                    }
+                    Tag myTag = DbContext.Tags.FirstOrDefault(t=>t.Name.Equals(tagName));
+                    if(myTag==null){
+                        Tag newTag = new Tag();
+                        newTag.Name = tagName;
+                        newTag.CreatedAt = DateTime.Now;
+                        newTag.UpdatedAt = DateTime.Now;
+
+                        newTag.Posts.Add(post);
+                        postTags.Add(newTag);
+
+                        DbContext.Tags.Add(newTag);
+                        DbContext.SaveChanges();
+                    }
+                }
+                
                 
                 DbContext.SaveChanges();
-                Console.WriteLine(author.Posts.Count);
 
 
             }
@@ -50,7 +78,7 @@ namespace BlogApplication.Controllers{
         public IActionResult ShowPost(int id){
             Post post;
             using(var DbContext = new DbConfigure()){
-                post = DbContext.Posts.Include(p=>p.Author).FirstOrDefault(item=> item.Id==id);
+                post = DbContext.Posts.Include(p=>p.Author).Include(p=>p.Tags).FirstOrDefault(item=> item.Id==id);
 
             }
             return View(post);
@@ -90,16 +118,52 @@ namespace BlogApplication.Controllers{
             return View(post);
         }
         [HttpPost]
-        public IActionResult Update(Post post,string allTags){
+        public IActionResult Update(Post post,string tagInput){
             int id = post.Id;
             Post exixtPost;
             using(var dbContext = new DbConfigure()){
-                exixtPost  = dbContext.Posts.Find(id);
+                exixtPost  = dbContext.Posts.Include(p=>p.Tags).FirstOrDefault(p=>p.Id==post.Id);
                 if(exixtPost!=null){
                     exixtPost.Title = post.Title;
                     exixtPost.Excerpt = post.Excerpt;
                     exixtPost.Content = post.Content;
+
+                    string []tagsName = tagInput.Split(',');
+                    List<Tag> tags = dbContext.Tags.ToList();
+                    List<Tag> postTags = exixtPost.Tags;
+
+                    foreach(string tagName in tagsName){
+                        foreach(Tag tag in tags){
+                            if(tag.Name.Equals(tagName)){
+                                Tag exixtTag = dbContext.Tags.FirstOrDefault(t=> t.Id==tag.Id);
+                                exixtTag.UpdatedAt = DateTime.Now;
+                                List<Post> tagPosts = exixtTag.Posts;
+
+                                if(!postTags.Contains(exixtTag)){
+                                    postTags.Add(exixtTag);
+                                    tagPosts.Add(post);
+                                }
+                                
+                                dbContext.SaveChanges();
+                            }
+                        }
+                        Tag myTag = dbContext.Tags.FirstOrDefault(t=>t.Name.Equals(tagName));
+                        if(myTag==null){
+                            Tag newTag = new Tag();
+                            newTag.Name = tagName;
+                            newTag.CreatedAt = DateTime.Now;
+                            newTag.UpdatedAt = DateTime.Now;
+
+                            newTag.Posts.Add(exixtPost);
+                            postTags.Add(newTag);
+
+                            dbContext.Tags.Add(newTag);
+                            dbContext.SaveChanges();
+                        }
+                    }
+
                     dbContext.SaveChanges();
+
                 }
             }
             return RedirectToAction("UserPost","Home");

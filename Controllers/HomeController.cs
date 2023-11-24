@@ -19,7 +19,7 @@ public class HomeController : Controller
     {
         List<Post> posts = new List<Post>();
         using(var DbContext = new DbConfigure()){
-            posts = DbContext.Posts.Include(p=>p.Author).ToList();
+            posts = DbContext.Posts.Include(p=>p.Author).Include(p=>p.Tags).ToList();
         }
         return View(posts);
     }
@@ -65,7 +65,7 @@ public class HomeController : Controller
     public IActionResult UserPost(){
         List<Post> posts = new List<Post>();
         using(var dbContext = new DbConfigure()){
-            posts = dbContext.Posts.ToList();
+            posts = dbContext.Posts.Include(p=>p.Tags).ToList();
         }
         return View(posts);
     }
