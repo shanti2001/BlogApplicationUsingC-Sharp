@@ -1,0 +1,21 @@
+@model BlogApplication.Models.Comment
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Comment</title>
+</head>
+<body>
+    <h2>Update Comment</h2>
+    <form asp-action="Update" asp-controller="Comment" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="@Model.Name" readonly /><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="@Model.Email" readonly /><br>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" rows="3">@Model.CommentText</textarea><br>
+        <input type="submit" value="Update Comment">
+    </form>
+</body>
+</html>

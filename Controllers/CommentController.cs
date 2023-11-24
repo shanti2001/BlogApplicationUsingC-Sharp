@@ -31,5 +31,36 @@ namespace BlogApplication.Controllers{
              ViewBag.post = post;
             return View(postComment);
         }
+        public IActionResult DeleteComment(int id){
+            Comment comment;
+            Post post;
+            using(var dbContext = new DbConfigure()){
+                comment = dbContext.Comments.Include(c=>c.Post).FirstOrDefault(c=>c.Id==id);
+                post = comment.Post;
+                dbContext.Comments.Remove(comment);
+                dbContext.SaveChanges();
+            }
+            return RedirectToAction("ShowComment",new {id=post.Id});
+        }
+        public IActionResult UpdateComment(int id){
+            Comment comment;
+            using(var dbContext = new DbConfigure()){
+                comment = dbContext.Comments.Include(c=>c.Post).FirstOrDefault(c=>c.Id==id);
+            }
+            return View(comment);
+        }
+        public IActionResult Update(int id,string comment){
+            Comment exixtComment;
+            Post post;
+            using(var dbContext = new DbConfigure()){
+                exixtComment = dbContext.Comments.Include(c=>c.Post).FirstOrDefault(c=>c.Id==id);
+                exixtComment.UpdatedAt = DateTime.Now;
+                exixtComment.CommentText = comment;
+                post = exixtComment.Post;
+                dbContext.SaveChanges();
+            }
+
+            return RedirectToAction("ShowComment",new {id=post.Id});
+        }
     }
 }
