@@ -1,7 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-@model List<Post>
+
+@model HashSet<Post>
 <html>
     <head>
         <link rel="stylesheet" href="~/css/homeStyle.css"/>
@@ -13,7 +11,7 @@
             <a href="/">Home</a>
             <div class="menu-bar-right">
                 <span >
-                    <a asp-action="Login" >Login</a>
+                    <a asp-action="Login" asp-controller="Home" >Login</a>
                 </span>
                 @* <span>
                     <form method="POST">

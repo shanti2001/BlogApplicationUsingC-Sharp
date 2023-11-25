@@ -41,14 +41,14 @@
         </div>
     </div>
     <div>
-        <form method="post" asp-page="/filterby">
+        <form asp-action="FilterBy" asp-controller="Post" method="post">
             <div class="filterContainer">
                 <div class="item">
                     <p>Author</p>
                     @foreach (var user in @ViewBag.Users)
                     {
                         <div>
-                            <input type="checkbox" name="authorName" value="@user">
+                            <input type="checkbox" name="authorsName" value="@user.Name">
                             <span>@user.Name</span>
                         </div>
                     }
@@ -58,7 +58,7 @@
                     @foreach (var tag in @ViewBag.Tags)
                     {
                         <div>
-                            <input type="checkbox" name="tagId" value="@tag.Id">
+                            <input type="checkbox" name="tagsId" value="@tag.Id">
                             <span>@tag.Name</span>
                         </div>
                     }

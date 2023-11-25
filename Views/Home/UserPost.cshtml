@@ -24,7 +24,7 @@
                 </select>
                 <input type="submit" value="SortByPublishDate">
             </form>
-            <a asp-action="Filter">Filter</a>
+            <a asp-action="showFilter" asp-controller="Post">Filter</a>
             <a asp-action="NewPost" asp-controller="Post">Create New Blog</a>
         </div>
     </div>
@@ -41,25 +41,29 @@
             {
                 <div class="post">
                     <h2>@post.Title</h2>
-                    
-                    <span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+                    @if(post.Author!=null){
+						<h6>
+							<span>@post.Author.Name</span>,<span>@post.PublishedAt.ToString("dd/MM/yyyy")</span>
+						</h6>
+					}
                         
                     <p>@post.Excerpt</p>
 
                     <div>
                         <strong>Tags:</strong>
-                        @if (post.Tags != null)
+                        @if (post.Tags != null && post.Tags.Any())
                         {
                             @foreach (var tag in post.Tags)
                             {
                                 <span>@tag.Name</span>
-                                @if (post.Tags.Last() != tag)
+                                @if (tag != post.Tags.Last())
                                 {
                                     <span>,</span>
                                 }
                             }
                         }
-                        else{
+                        else
+                        {
                             <span>No tags</span>
                         }
                         

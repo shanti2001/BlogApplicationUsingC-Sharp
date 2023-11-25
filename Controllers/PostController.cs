@@ -190,6 +190,68 @@ namespace BlogApplication.Controllers{
             ViewBag.tags = tags;
             return View();
         }
+        public IActionResult FilterBy(string []authorsName,string []tagsId){
+
+            HashSet<Post> posts = new HashSet<Post>();
+            using(var dbContext = new DbConfigure()){
+                List<User> users = dbContext.Users.Include(u=>u.Posts).ToList();
+                List<Tag> tags = dbContext.Tags.Include(t=>t.Posts).ToList();
+                if(tagsId.Length==0 && authorsName.Length==0){
+                    List<Post> post = dbContext.Posts.Include(p=>p.Author).Include(p=>p.Tags).ToList();
+                    posts = new HashSet<Post>(post);
+                }
+                else if (tagsId.Length==0)
+                {
+                    foreach (var authorName in authorsName)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.Name.Equals(authorName))
+                            {
+                                posts.UnionWith(user.Posts);
+                            }
+                        }
+                    }
+                }
+                else if (authorsName.Length==0)
+                {
+                    foreach (var tagId in tagsId)
+                    {
+                        var tag = dbContext.Tags.Include(t=>t.Posts).FirstOrDefault(t=>t.Id==int.Parse(tagId));
+                        if (tags.Contains(tag))
+                        {
+                            posts.UnionWith(tag.Posts);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var authorName in authorsName)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.Name.Equals(authorName))
+                            {
+                                var authorPosts = user.Posts;
+                                foreach (var post in authorPosts)
+                                {
+                                    var postTags = post.Tags;
+                                    foreach (var tagId in tagsId)
+                                    {
+                                        var tag = dbContext.Tags.Include(t=>t.Posts).FirstOrDefault(t=>t.Id==int.Parse(tagId));
+                                        if (tags.Contains(tag) && postTags.Contains(tag))
+                                        {
+                                            posts.Add(post);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return View(posts);
+        }
 
     }
     
