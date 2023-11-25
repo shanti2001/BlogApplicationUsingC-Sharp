@@ -178,6 +178,18 @@ namespace BlogApplication.Controllers{
             List<Post> posts = _service.GetAllPostsSortedByPublishDate(sort);
             return View(posts);
         }
+        [HttpGet("/Post/showFilter")]
+        public IActionResult ShowFilter(){
+            List<User> users;
+            List<Tag> tags;
+            using(var DbContext = new DbConfigure()){
+                users = DbContext.Users.ToList();
+                tags = DbContext.Tags.ToList();
+            }
+            ViewBag.users = users;
+            ViewBag.tags = tags;
+            return View();
+        }
 
     }
     

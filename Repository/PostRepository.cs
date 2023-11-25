@@ -13,7 +13,7 @@ namespace BlogApplication.Reposotory{
             using(var DbContext = new DbConfigure()){
                 List<Post> tempPost;
                 foreach(string item in serachWord){
-                    tempPost = DbContext.Posts
+                    tempPost = DbContext.Posts.Include(p=>p.Author).Include(p=>p.Tags)
                     .Where(p =>
                         EF.Functions.Like(p.Title, $"%{item}%") ||
                         EF.Functions.Like(p.Content, $"%{item}%") ||

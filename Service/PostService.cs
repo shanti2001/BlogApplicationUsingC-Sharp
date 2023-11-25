@@ -1,6 +1,7 @@
 
 using BlogApplication.Models;
-using com.blogApplication.BlogApplication2.entity; 
+using com.blogApplication.BlogApplication2.entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApplication.Services
 {
@@ -10,7 +11,7 @@ namespace BlogApplication.Services
         {
             List<Post> posts;
             using(var dbContext = new DbConfigure()){
-                IQueryable<Post> postsQuery = dbContext.Posts;
+                IQueryable<Post> postsQuery = dbContext.Posts.Include(p=>p.Author).Include(p=>p.Tags);
 
                 if (sortBy.Equals("desc", StringComparison.OrdinalIgnoreCase))
                 {
