@@ -1,8 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using BlogApplication.Reposotory;
 using BlogApplication.Services;
-using com.blogApplication.BlogApplication2.entity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BlogApplication{
     public class Startup{
@@ -17,9 +15,13 @@ namespace BlogApplication{
             
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<PostService>(); 
-            services.AddAuthorization(options =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option=>
             {
-                
+                option.LoginPath="/Home/Login";
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            });
+            services.AddAuthorization(option=>{
+
             });
             services.AddControllersWithViews();
         }
@@ -38,6 +40,7 @@ namespace BlogApplication{
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

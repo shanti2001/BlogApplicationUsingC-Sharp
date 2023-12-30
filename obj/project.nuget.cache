@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/wAchNxSmlhjnIgxsM5oJVn/YHStT5j8FT/wTXHUjoJy87t4R98UzcxQ3SWFR7kjTT7L0IS98TfRPQc4HFQggQ==",
+  "dgSpecHash": "HW0V5CDPcF/+qXEHLdKiz29iXHET6t4kobwc0lknxQ118iHYydt8nYYuPrRkCbVs93YjOfNQ2m4kDdLRPyZkLg==",
   "success": true,
   "projectFilePath": "C:\\Users\\SHANTINATH SAMANTA\\OneDrive\\Desktop\\ProjectUsingDotnet\\BlogApplication\\BlogApplication.csproj",
   "expectedPackageFiles": [
@@ -85,7 +85,11 @@
     "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\SHANTINATH SAMANTA\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
   ],
   "logs": []
 }

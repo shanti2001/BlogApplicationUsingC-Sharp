@@ -31,12 +31,17 @@ public class HomeController : Controller
     public IActionResult Login(){
         return View();
     }
+    [HttpPost]
+    public async Task<IActionResult> Login(User user){
+            
+         return RedirectToAction("Index","Home");
+    }
     public IActionResult Register(){
         return View();
     }
     [HttpPost]
     public IActionResult AddUser(string name,string email,string password,string confirmPassword){
-        if(password.Equals(confirmPassword)){
+        if(password!=null && confirmPassword!=null && password.Equals(confirmPassword)){
             using (var dbContext = new DbConfigure())
             {
                 var newUser = new User
@@ -53,6 +58,8 @@ public class HomeController : Controller
             return RedirectToAction("Login");
         }
         else{
+            Console.WriteLine("Hii");
+            Console.WriteLine(password+" "+confirmPassword+"hii");
             return RedirectToAction("Register");
         }
         

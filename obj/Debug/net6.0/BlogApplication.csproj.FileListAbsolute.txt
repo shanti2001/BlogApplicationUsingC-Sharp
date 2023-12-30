@@ -74,3 +74,8 @@ C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\
 C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
 C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\obj\Debug\net6.0\staticwebassets\msbuild.BlogApplication.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\obj\Debug\net6.0\staticwebassets\msbuild.build.BlogApplication.props
+C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.BlogApplication.props
+C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.BlogApplication.props
+C:\Users\SHANTINATH SAMANTA\OneDrive\Desktop\ProjectUsingDotnet\BlogApplication\obj\Debug\net6.0\staticwebassets.pack.json
